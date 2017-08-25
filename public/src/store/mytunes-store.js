@@ -20,11 +20,13 @@ var store = new vuex.Store({
       var url2 = 'https://itunes.apple.com/search?term=' + artist;
       var apiUrl = url + encodeURIComponent(url2);
       $.get(apiUrl).then(data=>{
-        commit('setResults', data)
+        commit('setResults', JSON.parse(data))
+        console.log(JSON.parse(data))
       })
     },
     getMyTunes({commit, dispatch}){
       //this should send a get request to your server to return the list of saved tunes
+
     },
     addToMyTunes({commit, dispatch}, track){
       //this will post to your server adding a new track to your tunes
