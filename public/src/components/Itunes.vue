@@ -10,7 +10,7 @@
         <div id="ssongs">
             <div class="container-fluid">
                 <div id="mainTitle">
-                    <h2>Summary of Results for: </h2>
+                    <h2>Summary of Results for: {{artist.toUpperCase()}}</h2>
                 </div>
 
                 <div class="row">
@@ -23,7 +23,6 @@
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-xs-1"></div> -->
                             <div class="col-xs-12">
                                 <div class="card-deck">
                                     <div id="templateInsert">
@@ -31,9 +30,6 @@
                                         <!-- Template Goes Here -->
 
                                         <div v-for="song in songs">
-
-                                            <!-- <div class="col-xs-3"> -->
-
                                             <div class="card card-outline-primary">
                                                 <img class="card-img-top" :src="song.artworkUrl100" alt="song image">
                                                 <div class="card-block">
@@ -45,7 +41,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- </div> -->
                                         </div>
 
                                         <!-- End Template -->
@@ -53,7 +48,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-xs-1"></div> -->
                         </div>
                     </div>
                 </div>
@@ -63,11 +57,6 @@
 </template>
 
 <script>
-    //  TODO: Add button to each song when rendered to add to myTunes
-
-    //import Itunes from './Itunes'
-    //import Mytunes from './Mytunes'
-
     export default {
         name: 'itunes',
 
@@ -79,8 +68,7 @@
         },
 
         components: {
-            //Itunes
-            //Mytunes
+
         },
 
         computed: {
@@ -109,22 +97,25 @@
 </script>
 
 
-<style>
-    /* .itunes {
+<style scoped>
+    .itunes {
         display: inline-block;
         background: red;
         min-height: 500px;
         min-width: 100%;
-    } */
+    }
     /* * { */
     /* outline: 1px solid black;    */
     /* } */
-    /* .test {
+
+    .test {
         text-align: center;
         padding: 20px;
     }
 
-   
+    #mainTitle{
+        text-align: center;
+    }
     /* background: url('./ocean.jpg') no-repeat center center fixed; */
 
     body {
@@ -192,6 +183,7 @@
 
     .sticky {
         position: sticky;
+        text-align: center;
         top: 0;
         z-index: 100000;
     }

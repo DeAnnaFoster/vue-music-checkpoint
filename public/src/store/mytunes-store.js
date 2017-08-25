@@ -2,6 +2,8 @@ import vue from 'vue'
 import vuex from 'vuex'
 import $ from 'jquery'
 
+//mongodb://<dbuser>:<dbpassword>@ds157873.mlab.com:57873/playlist
+
 vue.use(vuex)
 
 var store = new vuex.Store({
@@ -15,7 +17,22 @@ var store = new vuex.Store({
     },
     saveToMyTunes(state, song) {
       state.myTunes.push(song);
-    }
+    },
+    removeTrack(state, song) {
+      //array.splice(start, deleteCount)
+      var index = state.myTunes.indexOf(song);
+      state.myTunes.splice(index, 1);
+    },
+    promoteTrack(state, song) {
+      var index = state.myTunes.indexOf(song);
+      //remove 
+      state.myTunes.splice(index - 1, 2, song, state.myTunes[index - 1]);
+
+    },
+    demoteTrack(state, song) {
+      var index = state.myTunes.indexOf(song);
+      state.myTunes.splice(index, 2, state.myTunes[index + 1], song);
+    },
   },
   actions: {
     getMusicByArtist({ commit, dispatch }, artist) {
@@ -41,16 +58,22 @@ var store = new vuex.Store({
       commit('saveToMyTunes', song);
     },
 
-    removeTrack({ commit, dispatch }, track) {
+    removeTrack({ commit, dispatch }, song) {
       //Removes track from the database with delete
+
+      commit('removeTrack', song);
     },
 
-    promoteTrack({ commit, dispatch }, track) {
+    promoteTrack({ commit, dispatch }, song) {
       //this should increase the position / upvotes and downvotes on the track
+
+      commit('promoteTrack', song);
     },
 
-    demoteTrack({ commit, dispatch }, track) {
+    demoteTrack({ commit, dispatch }, song) {
       //this should decrease the position / upvotes and downvotes on the track
+
+      commit('demoteTrack', song);
     }
 
   }

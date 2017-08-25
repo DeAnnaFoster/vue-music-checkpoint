@@ -1,11 +1,5 @@
 <template>
     <div class="container-fluid">
-        <!-- <form class="form-inline test" @submit.prevent="getMusicByArtist">
-            <div class="form-group">
-                <input type="text" class="form-control" v-model="artist" placeholder="Artist Name" />
-                <button type="submit" class="btn btn-primary" id="get-music-button">Get Music</button>
-            </div>
-        </form> -->
 
         <div id="ssongs">
             <div class="container-fluid">
@@ -23,7 +17,7 @@
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-xs-1"></div> -->
+
                             <div class="col-xs-12">
                                 <div class="card-deck">
                                     <div id="templateInsert">
@@ -31,47 +25,28 @@
                                         <!-- Template Goes Here -->
 
                                         <div v-for="song in songs">
-                                            <!-- <div class="card card-outline-primary"> -->
 
-                                            <!-- <img class="card-img-top" :src="song.artworkUrl100" style="width:50px; height:50px;" alt="song image">
-                                                <div class="card-block " style="float: left;">
-                                                    <p style="float: left;" class="card-title">{{song.trackName}} from {{song.collectionName}} ({{song.collectionPrice}})</p>
-                                                    <p style="float: left;" >By: {{song.artistName}}</p>
-                                                    <div style="float: left;">
-                                                        <button type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-                                                        <button type="button" @click="" class="btn btn-default glyphicons glyphicons-arrow-up">Promote</button>
-                                                        <button type="button" @click="" class="btn btn-defaultglyphicons glyphicons-arrow-down">Demote</button>
-                                                        <button type="button" @click="" class="btn btn-danger">Remove</button>
-                                                    </div>
-
-                                                </div> -->
-                                            <div style="margin: 10px; width: 350px; ">
+                                            <div style="margin: 25px; width: 350px; height: 50px">
                                                 <ul>
-                                                    <li style="display:block; float:left; ">
-                                                        <div style=" vertical-align: top">
-                                                            <button style=" vertical-align: top; float: left; height: 20px;" type="button" @click="" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
-                                                            <button style=" vertical-align: bottom; float: left; height: 20px;" type="button" @click="" class="btn btn-default glyphicons glyphicons-arrow-down"><span class="glyphicon glyphicon-arrow-down special" aria-hidden="true"></span></button>
-                                                        </div>
-
-
+                                                    <li style="float:left; ">
+                                                        <span style="display:block; float:left;">
+                                                            <button style="margin: 3px; height: 20px; vertical-align: top;" type="button" @click="promoteTrack(song)" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button><br/>
+                                                        <button style="margin: 3px; height: 20px;" type="button" @click="demoteTrack(song)" class="btn btn-default glyphicons glyphicons-arrow-down"><span class="glyphicon glyphicon-arrow-down special" aria-hidden="true"></span></button>
+                                                        </span>
                                                         <img class="card-img-top" :src="song.artworkUrl100" style="width:50px; height:50px;" alt="song image">
                                                     </li>
-                                                    
-                                                    <li style="float: left;">
+
+                                                    <li style="vertical-align: top; text-align:left;">
                                                         {{song.trackName}} from {{song.collectionName}}
                                                     </li>
 
                                                     <li style="float: right;">
-
                                                         <button style="float: left;" type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-
-                                                        <button style="float: left;" type="button" @click="" class="btn btn-danger">Remove</button>
-
+                                                        <button style="float: left;" type="button" @click="removeTrack(song)" class="btn btn-danger">Remove</button>
                                                     </li>
                                                 </ul>
                                             </div>
 
-                                            <!-- </div> -->
                                         </div>
 
                                         <!-- End Template -->
@@ -87,7 +62,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
     //import Itunes from './Itunes'
@@ -108,8 +82,7 @@
         },
 
         components: {
-            //Mytunes
-            //Itunes
+
         },
 
         computed: {
@@ -119,14 +92,20 @@
         },
 
         methods: {
-            // getMusicByArtist() {
-            //     this.$store.dispatch("getMusicByArtist", this.artist)
-            // },
             getMyTunes() {
                 this.$store.dispatch("");
             },
             loadPlayer(song) {
                 this.songUrl = song;
+            },
+            promoteTrack(song) {
+                this.$store.dispatch("promoteTrack", song);
+            },
+            demoteTrack(song) {
+                this.$store.dispatch("demoteTrack", song);
+            },
+            removeTrack(song) {
+                this.$store.dispatch("removeTrack", song);
             }
         },
 
@@ -138,29 +117,35 @@
 </script>
 
 
-<style>
+<style scoped>
     .mytunes {
         display: inline-block;
         background: red;
         min-height: 500px;
-        min-width: 45%;
+        min-width: 35%;
     }
-    /* * { */
-    /* outline: 1px solid black;    */
-    /* } */
-    /* .test {
+
+    #mainTitle {
+        text-align: center;
+    }
+    /* 
+     * { 
+     outline: 1px solid black;    
+     }  */
+
+    .test {
         text-align: center;
         padding: 20px;
     }
 
-    body { */
-    /* background: url('./ocean.jpg') no-repeat center center fixed; */
-    /* text-align: center;
+    body {
+        /* background: url('./ocean.jpg') no-repeat center center fixed; */
+        text-align: center;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-    } */
+    }
 
     li {
         display: inline-block;
@@ -173,8 +158,9 @@
         width: 250px;
         height: 250px;
     }
-    img{
-        float:right;
+
+    img {
+        float: right;
     }
 
     .card-deck {
@@ -225,6 +211,7 @@
 
     .sticky {
         position: sticky;
+        text-align: center;
         top: 0;
         z-index: 100000;
     }

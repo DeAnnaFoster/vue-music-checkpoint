@@ -53,7 +53,7 @@
 
 
 <style>
-  .mytunes {
+    .mytunes {
     display: inline-block;
     min-height: 500px;
     min-width: 100%;
@@ -67,7 +67,7 @@
     min-height: 500px;
     min-width: 100%;
     margin: 10px;
-  }
+  }  
 
   /* background: url('./ocean.jpg') no-repeat center center fixed; */
 
