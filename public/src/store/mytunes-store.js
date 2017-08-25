@@ -10,34 +10,46 @@ var store = new vuex.Store({
     results: []
   },
   mutations: {
-    setResults(state, results){
+    setResults(state, results) {
       state.results = results
+    },
+    saveToMyTunes(state, song) {
+      state.myTunes.push(song);
     }
   },
   actions: {
-    getMusicByArtist({commit, dispatch}, artist) {
+    getMusicByArtist({ commit, dispatch }, artist) {
       var url = '//bcw-getter.herokuapp.com/?url=';
       var url2 = 'https://itunes.apple.com/search?term=' + artist;
       var apiUrl = url + encodeURIComponent(url2);
-      $.get(apiUrl).then(data=>{
+      $.get(apiUrl).then(data => {
         commit('setResults', JSON.parse(data))
         console.log(JSON.parse(data))
       })
     },
-    getMyTunes({commit, dispatch}){
-      //this should send a get request to your server to return the list of saved tunes
 
+    getMyTunes({ commit, dispatch }, payload) {
+      //this should send a get request to your server to return the list of saved tunes
+      // $.get(ip + '/api/blogs/' + blogId).then(blog => {
+      //   commit('setActiveBlog', blog)
+      // })
     },
-    addToMyTunes({commit, dispatch}, track){
+
+    addToMyTunes({ commit, dispatch }, song) {
       //this will post to your server adding a new track to your tunes
+
+      commit('saveToMyTunes', song);
     },
-    removeTrack({commit, dispatch}, track){
+
+    removeTrack({ commit, dispatch }, track) {
       //Removes track from the database with delete
     },
-    promoteTrack({commit, dispatch}, track){
+
+    promoteTrack({ commit, dispatch }, track) {
       //this should increase the position / upvotes and downvotes on the track
     },
-    demoteTrack({commit, dispatch}, track){
+
+    demoteTrack({ commit, dispatch }, track) {
       //this should decrease the position / upvotes and downvotes on the track
     }
 
