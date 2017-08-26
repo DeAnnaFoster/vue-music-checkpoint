@@ -2,11 +2,10 @@ var express = require('express')
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser')
 var cors = require('cors');
-//var dbConnect = require('./config/db/mlab-config')
+var dbConnect = require('./config/db/mlab-config')
 var port = 3000
 
 var server = express();
-
 
 server.use(cors());
 
@@ -22,7 +21,7 @@ server.listen(port, ()=>{
 
 //TODO
 
-var blogsRouter = require('./routes/blogs')
-server.use('/api/blogs', blogsRouter)
+var playlistRouter = require('./routes/playlist')
+server.use('/api/playlist', playlistRouter)
 
 
