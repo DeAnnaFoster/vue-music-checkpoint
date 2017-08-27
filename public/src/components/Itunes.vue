@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid wide">
         <form class="form-inline test" @submit.prevent="getMusicByArtist">
             <div class="form-group">
                 <input type="text" class="form-control" v-model="artist" placeholder="Artist Name" />
@@ -8,53 +8,53 @@
         </form>
 
         <div id="ssongs">
-            <div class="container-fluid">
+            <!-- <div class="container-fluid"> -->
 
-                <div id="mainTitle">
-                    <h2>Summary of Results for: {{artist.toUpperCase()}}</h2>
-                </div>
+            <div id="mainTitle">
+                <h2>Summary of Results for: {{artist.toUpperCase()}}</h2>
+            </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
 
-                        <div class="row sticky">
-                            <div class="player">
-                                <audio class="audioPlay" id="theOne" :src="this.songUrl" type="audio/wav" controls autoplay></audio>
-                            </div>
+                    <div class="row sticky">
+                        <div class="player">
+                            <audio class="audioPlay" id="theOne" :src="this.songUrl" type="audio/wav" controls autoplay></audio>
                         </div>
+                    </div>
 
-                        <div class="row">
+                    <div class="row " >
 
-                            <div class="col-xs-12">
+                        <div class="col-xs-12">
 
-                                <div class="card-deck">
-                                    <div id="templateInsert">
+                            <div class="card-deck ">
+                                <div id="templateInsert">
 
-                                        <!-- Template Goes Here -->
+                                    <!-- Template Goes Here -->
 
-                                        <div v-for="song in songs">
-                                            <div class="card card-outline-primary">
-                                                <img class="card-img-top" :src="song.artworkUrl100" alt="song image">
-                                                <div class="card-block">
-                                                    <p class="card-title">{{song.trackName}} from {{song.collectionName}} ({{song.collectionPrice}})</p>
-                                                     <p>By: {{song.artistName}}</p> 
-                                                    <div>
-                                                        <button type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-                                                        <button type="button" @click="addToMyTunes(song)" class="btn btn-primary" id="save-to-mytunes">Save to My Playlist</button>
-                                                    </div>
+                                    <div v-for="song in songs" >
+                                        <div class="card card-outline-primary ">
+                                            <img class="card-img-top" :src="song.artworkUrl100" alt="song image">
+                                            <div class="card-block">
+                                                <p class="card-title">{{song.trackName}} from {{song.collectionName}} ({{song.collectionPrice}})</p>
+                                                <!-- <p>By: {{song.artistName}}</p> -->
+                                                <div>
+                                                    <button type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                                                    <button type="button" @click="addToMyTunes(song)" class="btn btn-primary" id="save-to-mytunes">+Playlist</button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- End Template -->
-
                                     </div>
+
+                                    <!-- End Template -->
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -103,9 +103,9 @@
 <style scoped>
     .itunes {
         display: inline-block;
-        background: red;
-        min-height: 500px;
-        min-width: 100%;
+        background-color: black;
+        color: white;
+        height: 100%;
     }
 
     * {
@@ -115,7 +115,6 @@
     #mainTitle {
         text-align: center;
     }
-    /* background: url('./ocean.jpg') no-repeat center center fixed; */
 
     body {
         text-align: center;
@@ -136,35 +135,35 @@
     }
 
     .card-deck {
-        text-align: middle;
+        text-align: center;
         display: inline-block;
         width: 100%;
+        padding: 0 0px 75px 20px;
+  
     }
 
     .card {
         width: 250px;
         padding: 5px;
-        /* text-align: left;
-        display: inline-block; */
         float: left;
-
         margin: 10px;
-    }
-
-    .card-title {
-        height: 35px;
-        font-size: 12px;
-    }
-
-    .btn {
-        width: 75px;
-        font-size: 10px;
         text-align: center;
     }
 
     .card-outline-primary {
         padding: 0;
         margin: 5px;
+    }
+
+    .card-title {
+        height: 4em;
+        font-size: 1em;
+    }
+
+    .btn {
+        width: 75px;
+        font-size: 10px;
+        text-align: center;
     }
 
     .btn-primary {
@@ -174,6 +173,7 @@
     p,
     h4 {
         font-size: 12px;
+        margin: 2px;
     }
 
     #player {
@@ -185,5 +185,10 @@
         text-align: center;
         top: 0;
         z-index: 100000;
+    }
+
+    .wide {
+        width: 100%;
+        text-align: center;
     }
 </style>

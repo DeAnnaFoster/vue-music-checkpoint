@@ -1,11 +1,5 @@
 <template>
-  <div class="home">
-    <!-- YOU WILL PROBABLY END UP WITH SOMETHING LIKE THIS -->
-    <!-- <span>&#x276E;</span> -->
-
-
-
-
+  <div class="home wide">
     <button class="leftArrow" @click.prevent="openMusic()" aria-hidden="true"></button>
 
     <div id="slideBlock" :right="this.right">
@@ -19,7 +13,6 @@
       </div>
     </div>
 
-    <!-- <mytunes class="mytunes">myTunes</mytunes> -->
     <itunes class="itunes">itunes</itunes>
 
   </div>
@@ -49,22 +42,10 @@
     //     return {
     //     }
     //   },
+
     computed: {
-      // blogs() {
-      //   return this.$store.state.blogs
-      // }
-
-
     },
     methods: {
-      // createNewBlog() {
-      //   var newBlog = {
-      //     title: "A NEW BLOG",
-      //     body: "YOU GET A BLOG"
-      //   }
-      //   this.$store.dispatch("createBlog", newBlog)
-      // }
-
       openMusic() {
         this.right = "0px";
         document.getElementById("slideBlock").style.right = "0px";
@@ -76,7 +57,6 @@
       }
     },
     mounted() {
-      // this.$store.dispatch("getBlogs")
     }
 
   }
@@ -87,15 +67,21 @@
 <style scoped>
   .mybtn {
     background: transparent;
-    width: 10px;
+    width: 15px;
     font-size: 6px;
     text-align: center;
     padding: 1px;
     margin: 10px;
     opacity: .6;
-    /* background: transparent; */
     outline: none;
-    color: black;
+    color: white;
+  }
+
+  .home {
+    position: fixed;
+    margin: 0;
+    background-color: black;
+    color: white;
   }
 
   #slideBlock {
@@ -107,14 +93,12 @@
     text-align: left;
     z-index: 100001;
     transition: 3s;
-    background-color: gray;
+    background-color: black;
   }
 
   #data {
     position: fixed;
     height: 100%;
-    /* right: -150px; */
-    /* width: 250px; */
     padding: 0px;
     text-align: left;
     overflow-y: scroll;
@@ -131,26 +115,28 @@
 
   .mytunes {
     display: inline-block;
-    min-height: 500px;
-    min-width: 100%;
-    background: green;
-    margin: 10px;
   }
 
   .itunes {
     display: inline-block;
-    background: red;
-    min-height: 500px;
-    min-width: 100%;
-    margin: 10px;
+    background-color: black;
+    color: white;
+    margin: 0px;
+    overflow: auto;
   }
 
+  .wide {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+  }
 
   .leftArrow {
     position: sticky;
     top: 50%;
 
     text-align: right;
+    margin: 1.2%;
     float: right;
     z-index: 100000;
     opacity: .3;
@@ -163,7 +149,7 @@
     border-left: 0px solid transparent;
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
-    border-color: black;
+    border-color: white;
     outline: none;
   }
 </style>

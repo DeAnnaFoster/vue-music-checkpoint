@@ -62,9 +62,6 @@
 </template>
 
 <script>
-    //import Itunes from './Itunes'
-    //import Mytunes from './Mytunes'
-
     export default {
         name: 'mytunes',
 
@@ -119,16 +116,14 @@
 
 <style scoped>
     .container-fluid {
-        /* width: 100%; */
         padding: 7px;
     }
 
     .mytunes {
         display: inline-block;
-        background: red;
-        /* min-height: 500px; */
+        background-color: black;
+        color:white;
         min-width: 400px;
-        /* 35% */
     }
 
     ul {
@@ -145,7 +140,6 @@
 
     #mainTitle {
         text-align: center;
-        /* padding: 0 0 0 70px;  */
     }
 
     * {
@@ -158,7 +152,6 @@
     }
 
     body {
-        /* background: url('./ocean.jpg') no-repeat center center fixed; */
         text-align: center;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -226,11 +219,7 @@
     }
 
     #player {
-        /* text-align: center;   */
-        /* width: 100%; */
-        /* padding: 0 0 0 120px; */
         float: left;
-        /* width: 400px; */
     }
 
     .sticky {
@@ -238,7 +227,6 @@
         text-align: center;
         top: 0;
         z-index: 100000;
-        /* padding: 0 0 0 20px; */
     }
 
     .wide {
