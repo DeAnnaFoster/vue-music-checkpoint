@@ -18,21 +18,28 @@ var store = new vuex.Store({
     saveToMyTunes(state, song) {
       state.myTunes.push(song);
     },
-    removeTrack(state, song) {
-      //array.splice(start, deleteCount)
-      var index = state.myTunes.indexOf(song);
-      state.myTunes.splice(index, 1);
-    },
-    promoteTrack(state, song) {
-      var index = state.myTunes.indexOf(song);
-      //remove 
-      state.myTunes.splice(index - 1, 2, song, state.myTunes[index - 1]);
+    removeSong(state, song) {
+      // var index = state.myTunes.indexOf(song);
+      // state.myTunes.splice(index, 1);
 
     },
-    demoteTrack(state, song) {
-      var index = state.myTunes.indexOf(song);
-      state.myTunes.splice(index, 2, state.myTunes[index + 1], song);
+    promoteTrack(state, song) {
+      // var index = state.myTunes.indexOf(song);
+      // state.myTunes.splice(index - 1, 2, song, state.myTunes[index - 1]);
+
     },
+
+    demoteTrack(state, song) {
+      // var index = state.myTunes.indexOf(song);
+      // state.myTunes.splice(index, 2, state.myTunes[index + 1], song);
+
+
+    },
+
+    setMyTunes(state, data) {
+      //console.log('data is: ' +data)
+      state.myTunes = data;
+    }
   },
   actions: {
     getMusicByArtist({ commit, dispatch }, artist) {
@@ -45,38 +52,103 @@ var store = new vuex.Store({
       })
     },
 
-    getMyTunes({ commit, dispatch }, payload) {
+    getMyTunes({ commit, dispatch }) {
       //this should send a get request to your server to return the list of saved tunes
-      // $.get(ip + '/api/blogs/' + blogId).then(blog => {
-      //   commit('setActiveBlog', blog)
-      // })
+      $.get("http://localhost:3000" + '/api/playlist').then(res => {
+        var firstSort = res.sort(function (a, b) {
+          var tnA = a.trackName.toUpperCase();
+          var tnB = b.trackName.toUpperCase(); 
+          if (tnA < tnB) {
+            return -1;
+          }
+          if (tnA > tnB) {
+            return 1;
+          }
+
+          // equal
+          return 0;
+        }).reverse();
+
+        var mySongs = firstSort.sort(function (a, b) {
+          return a.weight - b.weight;
+        }).reverse();
+
+        commit('setMyTunes', mySongs)
+      });
     },
 
     addToMyTunes({ commit, dispatch }, song) {
       //this will post to your server adding a new track to your tunes
-
-      commit('saveToMyTunes', song);
+      //console.log('song is: ' + song)
+      $.post('http://localhost:3000/api/playlist', song)
+        .then((res) => {
+          dispatch('getMyTunes') // 
+          //console.log(state.myTunes)
+        })
+        .fail(() => {
+          console.log("could not add to myTunes")
+        })
     },
 
     removeTrack({ commit, dispatch }, song) {
       //Removes track from the database with delete
+      $.ajax({
+        contentType: 'application/json',
+        method: 'DELETE',
+        url: '//localhost:3000/api/playlist/' + song._id   //needed full path - //localhost:3000
+      })
+        .then((res) => {
+          dispatch('getMyTunes') // 
+        })
+        .fail(() => {
+          console.log("could not remove track from myTunes")
+        })
 
-      commit('removeTrack', song);
-    },
+    //commit('removeSong', song);
+  },
 
-    promoteTrack({ commit, dispatch }, song) {
-      //this should increase the position / upvotes and downvotes on the track
+  promoteTrack({ commit, dispatch }, song) {
+    //this should increase the position / upvotes and downvotes on the track
+    var dataObject = { 'weight': song.weight + 1 };
 
-      commit('promoteTrack', song);
-    },
+    $.ajax({
+      contentType: 'application/json',
+      method: 'PUT',
+      url: '//localhost:3000/api/playlist/' + song._id,
+      data: JSON.stringify(dataObject)
+    })
+      .then((res) => {
+        //console.log('getting MyTunes')
+        dispatch('getMyTunes')
+      })
+      .fail(() => {
+        console.log("could not promote track")
+      })
 
-    demoteTrack({ commit, dispatch }, song) {
-      //this should decrease the position / upvotes and downvotes on the track
+    // commit('promoteTrack', song);
+  },
 
-      commit('demoteTrack', song);
-    }
+  demoteTrack({ commit, dispatch }, song) {
+    //this should decrease the position / upvotes and downvotes on the track
+    var dataObject = { 'weight': song.weight - 1 };
 
+    $.ajax({
+      contentType: 'application/json',
+      method: 'PUT',
+      url: '//localhost:3000/api/playlist/' + song._id,
+      data: JSON.stringify(dataObject)
+    })
+      .then((res) => {
+        //console.log('getting MyTunes')
+        dispatch('getMyTunes')
+      })
+      .fail(() => {
+        console.log("could not promote track")
+      })
+    // commit('demoteTrack', song);
   }
+
+}
 })
 
 export default store

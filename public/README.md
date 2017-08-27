@@ -53,7 +53,7 @@ Then make sure you take the `entire song object` and pass it to your `myTunes.ad
 Requirements:
 - `2.5 points`: All songs are drawn to the page with an extra buttons to add to myTunes
 - `5 points`: Entire song objects are passed to the store
-- `2.5 points`: Once a song is sent to the `myTunes` it needs to be added to the `myTracks` array
+- `2.5 points`: Once a song is sent to the `myTunes` it needs to be added to the `myTunes` array
 
 ### Step 2 - The MyTunes Component `Total Points: 10`
 

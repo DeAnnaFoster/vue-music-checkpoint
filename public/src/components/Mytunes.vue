@@ -42,7 +42,7 @@
 
                                                     <li style="float: right;">
                                                         <button style="float: left;" type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-                                                        <button style="float: left;" type="button" @click="removeTrack(song)" class="btn btn-danger">Remove</button>
+                                                        <button style="float: left;" type="button" @click="removeTrack(song)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>></button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -77,7 +77,9 @@
                 songUrl: '',
                 trackName: '',
                 collectionName: '',
-                previewUrl: ''
+                previewUrl: '',
+                weight: '',
+                _id:''
             }
         },
 
@@ -93,7 +95,7 @@
 
         methods: {
             getMyTunes() {
-                this.$store.dispatch("");
+                this.$store.dispatch("getMyTunes");
             },
             loadPlayer(song) {
                 this.songUrl = song;
@@ -110,7 +112,7 @@
         },
 
         mounted() {
-
+            this.$store.dispatch("getMyTunes");
         }
     }
 
@@ -152,6 +154,7 @@
         display: inline;
         list-style: none;
         font-size: 10px;
+        font-style: arial;
     }
 
     .card-img-top {
