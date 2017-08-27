@@ -9,6 +9,7 @@
 
         <div id="ssongs">
             <div class="container-fluid">
+
                 <div id="mainTitle">
                     <h2>Summary of Results for: {{artist.toUpperCase()}}</h2>
                 </div>
@@ -23,7 +24,9 @@
                         </div>
 
                         <div class="row">
+
                             <div class="col-xs-12">
+
                                 <div class="card-deck">
                                     <div id="templateInsert">
 
@@ -34,7 +37,7 @@
                                                 <img class="card-img-top" :src="song.artworkUrl100" alt="song image">
                                                 <div class="card-block">
                                                     <p class="card-title">{{song.trackName}} from {{song.collectionName}} ({{song.collectionPrice}})</p>
-                                                    <p>By: {{song.artistName}}</p>
+                                                     <p>By: {{song.artistName}}</p> 
                                                     <div>
                                                         <button type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
                                                         <button type="button" @click="addToMyTunes(song)" class="btn btn-primary" id="save-to-mytunes">Save to My Playlist</button>
@@ -104,16 +107,12 @@
         min-height: 500px;
         min-width: 100%;
     }
-    /* * { */
-    /* outline: 1px solid black;    */
-    /* } */
 
-    .test {
-        text-align: center;
-        padding: 20px;
+    * {
+        /* outline: 1px solid black; */
     }
 
-    #mainTitle{
+    #mainTitle {
         text-align: center;
     }
     /* background: url('./ocean.jpg') no-repeat center center fixed; */

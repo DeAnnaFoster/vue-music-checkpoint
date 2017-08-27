@@ -1,7 +1,25 @@
 <template>
   <div class="home">
     <!-- YOU WILL PROBABLY END UP WITH SOMETHING LIKE THIS -->
-    <mytunes class="mytunes">myTunes</mytunes>
+    <!-- <span>&#x276E;</span> -->
+
+
+
+
+    <button class="leftArrow" @click.prevent="openMusic()" aria-hidden="true"></button>
+
+    <div id="slideBlock" :right="this.right">
+      <button class="mybtn" @click.prevent="closeMusic()">X</button>
+      <div id="data">
+        <!-- myTunes goes here -->
+
+        <mytunes class="mytunes">myTunes</mytunes>
+
+        <!-- mt -->
+      </div>
+    </div>
+
+    <!-- <mytunes class="mytunes">myTunes</mytunes> -->
     <itunes class="itunes">itunes</itunes>
 
   </div>
@@ -17,6 +35,7 @@
     name: 'home',
     data() {
       return {
+        right: '-400px',
       }
     },
 
@@ -34,6 +53,8 @@
       // blogs() {
       //   return this.$store.state.blogs
       // }
+
+
     },
     methods: {
       // createNewBlog() {
@@ -43,17 +64,72 @@
       //   }
       //   this.$store.dispatch("createBlog", newBlog)
       // }
+
+      openMusic() {
+        this.right = "0px";
+        document.getElementById("slideBlock").style.right = "0px";
+      },
+
+      closeMusic() {
+        this.right = "-400px";
+        document.getElementById("slideBlock").style.right = "-400px";
+      }
     },
     mounted() {
       // this.$store.dispatch("getBlogs")
     }
+
   }
 
 </script>
 
 
-<style>
-    .mytunes {
+<style scoped>
+  .mybtn {
+    background: transparent;
+    width: 10px;
+    font-size: 6px;
+    text-align: center;
+    padding: 1px;
+    margin: 10px;
+    opacity: .6;
+    /* background: transparent; */
+    outline: none;
+    color: black;
+  }
+
+  #slideBlock {
+    position: fixed;
+    height: 100%;
+    right: -400px;
+    width: 400px;
+    padding: 0px;
+    text-align: left;
+    z-index: 100001;
+    transition: 3s;
+    background-color: gray;
+  }
+
+  #data {
+    position: fixed;
+    height: 100%;
+    /* right: -150px; */
+    /* width: 250px; */
+    padding: 0px;
+    text-align: left;
+    overflow-y: scroll;
+  }
+  /* #slideBlock:hover {
+     transition: 5s;
+    right:0;
+  }
+
+  #slideBlock:hover #data {
+     transition: 5s;
+    right: -150px;
+  } */
+
+  .mytunes {
     display: inline-block;
     min-height: 500px;
     min-width: 100%;
@@ -67,69 +143,27 @@
     min-height: 500px;
     min-width: 100%;
     margin: 10px;
-  }  
-
-  /* background: url('./ocean.jpg') no-repeat center center fixed; */
-
-  /* body { */
-    /* text-align: center; */
-    /* -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
   }
 
-  .card-img-top {
-    width: 250px;
-    height: 250px;
+
+  .leftArrow {
+    position: sticky;
+    top: 50%;
+
+    text-align: right;
+    float: right;
+    z-index: 100000;
+    opacity: .3;
+
+    background: transparent;
+    width: 20px;
+    height: 20px;
+    border-width: 0 5px 5px 0;
+    border-top: 0px solid transparent;
+    border-left: 0px solid transparent;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    border-color: black;
+    outline: none;
   }
-
-  .card-deck {
-    text-align: middle;
-    display: inline-block;
-    width: 100%;
-  }
-
-  .card {
-    width: 250px;
-    padding: 5px;
-    text-align: left;
-    display: inline-block;
-
-    margin: auto;
-  }
-
-  .card-title {
-    height: 35px;
-    font-size: 12px;
-  }
-
-  .btn {
-    width: 50px;
-    font-size: 10px;
-    text-align: center;
-  }
-
-  .card-outline-primary {
-    padding: 0;
-    margin: 5px;
-  }
-
-  .btn-primary {
-    width: 100px;
-  }
-
-  p,
-  h4 {
-    font-size: 12px;
-  }
-
-  #player {
-    text-align: center;
-  } */
-  /* .sticky {
-        position: sticky;
-        top: 0;
-        z-index: 100000;
-    } */
 </style>
