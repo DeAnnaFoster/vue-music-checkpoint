@@ -6,18 +6,13 @@
       <button class="mybtn" @click.prevent="closeMusic()">X</button>
       <div id="data">
         <!-- myTunes goes here -->
-
         <mytunes class="mytunes">myTunes</mytunes>
-
         <!-- mt -->
       </div>
     </div>
 
     <itunes class="itunes">itunes</itunes>
-
   </div>
-
-
 </template>
 
 <script>

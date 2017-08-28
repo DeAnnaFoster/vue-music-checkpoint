@@ -16,7 +16,7 @@ var store = new vuex.Store({
       state.results = results
     },
     saveToMyTunes(state, song) {
-      state.myTunes.push(song);
+      // state.myTunes.push(song);
     },
     removeSong(state, song) {
       // var index = state.myTunes.indexOf(song);
@@ -28,14 +28,12 @@ var store = new vuex.Store({
       // state.myTunes.splice(index - 1, 2, song, state.myTunes[index - 1]);
 
     },
-
     demoteTrack(state, song) {
       // var index = state.myTunes.indexOf(song);
       // state.myTunes.splice(index, 2, state.myTunes[index + 1], song);
 
 
     },
-
     setMyTunes(state, data) {
       //console.log('data is: ' +data)
       state.myTunes = data;
