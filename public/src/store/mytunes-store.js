@@ -3,6 +3,8 @@ import vuex from 'vuex'
 import $ from 'jquery'
 
 //mongodb://<dbuser>:<dbpassword>@ds157873.mlab.com:57873/playlist
+var production = !window.location.host.includes('localhost');
+var baseUrl = production ? '//deesmusic.heroku.com/api/' : '//localhost:3000/api/playlist'
 
 vue.use(vuex)
 
@@ -52,7 +54,7 @@ var store = new vuex.Store({
 
     getMyTunes({ commit, dispatch }) {
       //this should send a get request to your server to return the list of saved tunes
-      $.get("http://localhost:3000" + '/api/playlist').then(res => {
+      $.get(baseUrl).then(res => {
         var firstSort = res.sort(function (a, b) {
           var tnA = a.trackName.toUpperCase();
           var tnB = b.trackName.toUpperCase(); 
@@ -78,7 +80,7 @@ var store = new vuex.Store({
     addToMyTunes({ commit, dispatch }, song) {
       //this will post to your server adding a new track to your tunes
       //console.log('song is: ' + song)
-      $.post('http://localhost:3000/api/playlist', song)
+      $.post(baseUrl, song)
         .then((res) => {
           dispatch('getMyTunes') // 
           //console.log(state.myTunes)
@@ -93,7 +95,7 @@ var store = new vuex.Store({
       $.ajax({
         contentType: 'application/json',
         method: 'DELETE',
-        url: '//localhost:3000/api/playlist/' + song._id   //needed full path - //localhost:3000
+        url: baseUrl + '/' + song._id   //needed full path - //localhost:3000
       })
         .then((res) => {
           dispatch('getMyTunes') // 
@@ -112,7 +114,7 @@ var store = new vuex.Store({
     $.ajax({
       contentType: 'application/json',
       method: 'PUT',
-      url: '//localhost:3000/api/playlist/' + song._id,
+      url: baseUrl + '/' + song._id,
       data: JSON.stringify(dataObject)
     })
       .then((res) => {
@@ -133,7 +135,7 @@ var store = new vuex.Store({
     $.ajax({
       contentType: 'application/json',
       method: 'PUT',
-      url: '//localhost:3000/api/playlist/' + song._id,
+      url: baseUrl + '/' + song._id,
       data: JSON.stringify(dataObject)
     })
       .then((res) => {
