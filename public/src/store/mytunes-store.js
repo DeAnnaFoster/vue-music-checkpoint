@@ -4,7 +4,9 @@ import $ from 'jquery'
 
 //mongodb://<dbuser>:<dbpassword>@ds157873.mlab.com:57873/playlist
 var production = !window.location.host.includes('localhost');
-var baseUrl = production ? '//deesmusic.herokuapp.com/api/playlist' : '//localhost:3000/api/playlist'
+var baseUrl = production ? 'deesmusic.herokuapp.com/api/playlist' : '//localhost:3000/api/playlist';
+
+////localhost:3000/api/playlist
 
 vue.use(vuex)
 
