@@ -13,7 +13,8 @@ vue.use(vuex)
 var store = new vuex.Store({
   state: {
     myTunes: [],
-    results: []
+    results: [],
+    songUrl: ''
   },
   mutations: {
     setResults(state, results) {
@@ -22,25 +23,13 @@ var store = new vuex.Store({
     saveToMyTunes(state, song) {
       // state.myTunes.push(song);
     },
-    removeSong(state, song) {
-      // var index = state.myTunes.indexOf(song);
-      // state.myTunes.splice(index, 1);
-
-    },
-    promoteTrack(state, song) {
-      // var index = state.myTunes.indexOf(song);
-      // state.myTunes.splice(index - 1, 2, song, state.myTunes[index - 1]);
-
-    },
-    demoteTrack(state, song) {
-      // var index = state.myTunes.indexOf(song);
-      // state.myTunes.splice(index, 2, state.myTunes[index + 1], song);
-
-
-    },
     setMyTunes(state, data) {
       //console.log('data is: ' +data)
       state.myTunes = data;
+    },
+    setPreview(state, preview) {
+      console.log('Step 3 - setting preview in mutation in store: ' + preview);
+      state.songUrl = preview;
     }
   },
   actions: {
@@ -59,7 +48,7 @@ var store = new vuex.Store({
       $.get(baseUrl).then(res => {
         var firstSort = res.sort(function (a, b) {
           var tnA = a.trackName.toUpperCase();
-          var tnB = b.trackName.toUpperCase(); 
+          var tnB = b.trackName.toUpperCase();
           if (tnA < tnB) {
             return -1;
           }
@@ -106,51 +95,56 @@ var store = new vuex.Store({
           console.log("could not remove track from myTunes")
         })
 
-    //commit('removeSong', song);
-  },
+      //commit('removeSong', song);
+    },
 
-  promoteTrack({ commit, dispatch }, song) {
-    //this should increase the position / upvotes and downvotes on the track
-    var dataObject = { 'weight': song.weight + 1 };
+    promoteTrack({ commit, dispatch }, song) {
+      //this should increase the position / upvotes and downvotes on the track
+      var dataObject = { 'weight': song.weight + 1 };
 
-    $.ajax({
-      contentType: 'application/json',
-      method: 'PUT',
-      url: baseUrl + '/' + song._id,
-      data: JSON.stringify(dataObject)
-    })
-      .then((res) => {
-        //console.log('getting MyTunes')
-        dispatch('getMyTunes')
+      $.ajax({
+        contentType: 'application/json',
+        method: 'PUT',
+        url: baseUrl + '/' + song._id,
+        data: JSON.stringify(dataObject)
       })
-      .fail(() => {
-        console.log("could not promote track")
-      })
+        .then((res) => {
+          //console.log('getting MyTunes')
+          dispatch('getMyTunes')
+        })
+        .fail(() => {
+          console.log("could not promote track")
+        })
 
-    // commit('promoteTrack', song);
-  },
+      // commit('promoteTrack', song);
+    },
 
-  demoteTrack({ commit, dispatch }, song) {
-    //this should decrease the position / upvotes and downvotes on the track
-    var dataObject = { 'weight': song.weight - 1 };
+    demoteTrack({ commit, dispatch }, song) {
+      //this should decrease the position / upvotes and downvotes on the track
+      var dataObject = { 'weight': song.weight - 1 };
 
-    $.ajax({
-      contentType: 'application/json',
-      method: 'PUT',
-      url: baseUrl + '/' + song._id,
-      data: JSON.stringify(dataObject)
-    })
-      .then((res) => {
-        //console.log('getting MyTunes')
-        dispatch('getMyTunes')
+      $.ajax({
+        contentType: 'application/json',
+        method: 'PUT',
+        url: baseUrl + '/' + song._id,
+        data: JSON.stringify(dataObject)
       })
-      .fail(() => {
-        console.log("could not promote track")
-      })
-    // commit('demoteTrack', song);
+        .then((res) => {
+          //console.log('getting MyTunes')
+          dispatch('getMyTunes')
+        })
+        .fail(() => {
+          console.log("could not promote track")
+        })
+      // commit('demoteTrack', song);
+    },
+
+    setPreview({ commit, dispatch }, songPrev) {
+      console.log('Made it to step 2');
+      commit('setPreview', songPrev)
+    }
+
   }
-
-}
 })
 
 export default store

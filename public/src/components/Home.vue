@@ -11,6 +11,13 @@
       </div>
     </div>
 
+    <div class="row sticky">
+      <div class="player">
+        <audio class="audioPlay" id="theOne" :src="this.$store.state.songUrl" type="audio/wav" controls autoplay></audio>
+      </div>/
+    </div>
+
+
     <itunes class="itunes">itunes</itunes>
   </div>
 </template>
@@ -39,6 +46,7 @@
     //   },
 
     computed: {
+      //  return this.$store.state.songUrl
     },
     methods: {
       openMusic() {
@@ -49,6 +57,10 @@
       closeMusic() {
         this.right = "-400px";
         document.getElementById("slideBlock").style.right = "-400px";
+      },
+      setPreview(songPrev) {
+        //console.log('Made it to step 1a');
+        this.$store.dispatch('setPreview', songPrev)
       }
     },
     mounted() {
@@ -147,4 +159,21 @@
     border-color: white;
     outline: none;
   }
+
+  .sticky {
+    position: sticky;
+    text-align: center;
+    top: 0;
+    z-index: 100000;
+    margin: 20px;
+    padding-left:1.1%;
+  }
+
+  #player {
+    text-align: center;
+  }
+
+   * {
+         /* outline: 1px solid white;  */
+    }
 </style>

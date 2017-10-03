@@ -17,13 +17,13 @@
             <div class="row">
                 <div class="col-xs-12">
 
-                    <div class="row sticky">
+                    <!-- <div class="row sticky">
                         <div class="player">
                             <audio class="audioPlay" id="theOne" :src="this.songUrl" type="audio/wav" controls autoplay></audio>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="row " >
+                    <div class="row ">
 
                         <div class="col-xs-12">
 
@@ -32,14 +32,15 @@
 
                                     <!-- Template Goes Here -->
 
-                                    <div v-for="song in songs" >
+                                    <div v-for="song in songs">
                                         <div class="card card-outline-primary ">
                                             <img class="card-img-top" :src="song.artworkUrl100" alt="song image">
                                             <div class="card-block">
                                                 <p class="card-title">{{song.trackName}} from {{song.collectionName}} ({{song.collectionPrice}})</p>
                                                 <!-- <p>By: {{song.artistName}}</p> -->
                                                 <div>
-                                                    <button type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                                                    <!-- @click="loadPlayer(song.previewUrl)" -->
+                                                    <button type="button" @click="setPreview(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
                                                     <button type="button" @click="addToMyTunes(song)" class="btn btn-primary" id="save-to-mytunes">+Playlist</button>
                                                 </div>
                                             </div>
@@ -89,6 +90,10 @@
             },
             addToMyTunes(song) {
                 this.$store.dispatch("addToMyTunes", song)
+            },
+            setPreview(songPrev) {
+                //console.log('Made it to step 1');
+                this.$store.dispatch('setPreview', songPrev)
             }
         },
 
@@ -139,7 +144,6 @@
         display: inline-block;
         width: 100%;
         padding: 0 0px 75px 20px;
-  
     }
 
     .card {

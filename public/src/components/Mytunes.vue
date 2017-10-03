@@ -8,12 +8,12 @@
 
             <div class="row">
                 <div class="col-xs-12">
-
+<!-- 
                     <div class="row sticky">
                         <div class="player">
                             <audio class="audioPlay" id="theOne" :src="this.songUrl" type="audio/wav" controls autoplay></audio>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
 
@@ -40,7 +40,9 @@
                                                 </li>
 
                                                 <li style="float: right;">
-                                                    <button style="float: left; position:absolute; bottom: 5px; right: 40px;" type="button" @click="loadPlayer(song.previewUrl)" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                                                    <!-- @click="loadPlayer(song.previewUrl)" -->
+                                                    <button style="float: left; position:absolute; bottom: 5px; right: 40px;" type="button" @click="setPreview(song.previewUrl)"  
+                                                        class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
                                                     <button style="float: left; position:absolute; bottom: 5px; right: 2px;" type="button" @click="removeTrack(song)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></button>
                                                 </li>
                                             </ul>
@@ -67,14 +69,14 @@
 
         data() {
             return {
-                artist: '',
-                artwork: '',
-                songUrl: '',
-                trackName: '',
-                collectionName: '',
-                previewUrl: '',
-                weight: '',
-                _id: ''
+                // artist: '',
+                // artwork: '',
+                // songUrl: '',
+                // trackName: '',
+                // collectionName: '',
+                // previewUrl: '',
+                // weight: '',
+                // _id: ''
             }
         },
 
@@ -103,6 +105,9 @@
             },
             removeTrack(song) {
                 this.$store.dispatch("removeTrack", song);
+            },
+            setPreview(songPrev) {
+                this.$store.dispatch('setPreview', songPrev)
             }
         },
 
@@ -122,7 +127,7 @@
     .mytunes {
         display: inline-block;
         background-color: black;
-        color:white;
+        color: white;
         min-width: 400px;
     }
 
